@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: tms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: task_management
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d task_management -h 127.0.0.1"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    networks:
+      - tms-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tms-app
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_LIQUIBASE_CHANGE_LOG=classpath:db/changelog/db.changelog-master.yaml
+      - SPRING_LIQUIBASE_CONTEXTS=docker
+      - JWT_SECRET=TmsDockerJwtSecretKeyMustBeAtLeastSixtyFourCharactersLongForHs256Algorithm2024
+      - JWT_EXPIRATION_MS=86400000
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - tms-network
+
+volumes:
+  postgres_data:
+
+networks:
+  tms-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/task_management
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: docker
+    drop-first: false
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.example.taskmanagement: INFO
+    liquibase: INFO
+    liquibase.changelog: INFO
+    liquibase.executor: INFO
