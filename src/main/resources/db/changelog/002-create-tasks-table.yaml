@@ -2,7 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: 002-create-tasks-table
       author: task-management-system
-      context: docker
       changes:
         - createTable:
             tableName: tasks

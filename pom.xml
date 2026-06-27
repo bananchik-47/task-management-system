@@ -53,10 +53,10 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Liquibase -->
+		<!-- Liquibase (Spring Boot 4 auto-configuration) -->
 		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-liquibase</artifactId>
 		</dependency>
 
 		<!-- Lombok -->

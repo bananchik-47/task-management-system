@@ -34,12 +34,8 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_LIQUIBASE_ENABLED=true
-      - SPRING_LIQUIBASE_CHANGE_LOG=classpath:db/changelog/db.changelog-master.yaml
-      - SPRING_LIQUIBASE_CONTEXTS=docker
       - JWT_SECRET=TmsDockerJwtSecretKeyMustBeAtLeastSixtyFourCharactersLongForHs256Algorithm2024
       - JWT_EXPIRATION_MS=86400000
-      - SPRING_LIQUIBASE_ENABLED=true
-      - SPRING_PROFILES_ACTIVE=docker
     networks:
       - tms-network
 
