@@ -2,7 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: 001-create-users-table
       author: task-management-system
-      context: docker
       changes:
         - createTable:
             tableName: users
